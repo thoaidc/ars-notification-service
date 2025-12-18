@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
 import org.springframework.util.StringUtils;
 
@@ -16,6 +17,7 @@ import java.util.Optional;
 
 @SpringBootApplication
 @EnableDiscoveryClient
+@ComponentScan(basePackages = {"com.dct", "com.ars"})
 public class ArsNotificationServiceApplication {
     private static final Logger log = LoggerFactory.getLogger(ArsNotificationServiceApplication.class);
 
