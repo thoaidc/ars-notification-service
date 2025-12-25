@@ -10,6 +10,7 @@ import org.springframework.web.socket.server.support.DefaultHandshakeHandler;
 
 import java.security.Principal;
 import java.util.Map;
+import java.util.Optional;
 
 public class CustomHandshakeHandler extends DefaultHandshakeHandler {
 
@@ -21,6 +22,6 @@ public class CustomHandshakeHandler extends DefaultHandshakeHandler {
     ) {
         HttpServletRequest httpServletRequest = ((ServletServerHttpRequest) request).getServletRequest();
         String clientId = httpServletRequest.getParameter(CommonConstants.Params.CLIENT_ID);
-        return () -> clientId;
+        return () -> Optional.ofNullable(clientId).orElse("anonymous");
     }
 }

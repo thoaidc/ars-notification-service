@@ -146,6 +146,7 @@ app:
     public-request-patterns:
       - /favicon.ico
       - /api/p/**
+      - /api/internal/**
       - /actuator/**
       - /ws-sock-js/**
       - /ws/**
@@ -201,7 +202,7 @@ app:
     endpoints:
       - "/ws"
     application-prefixes: # For backend
-      - "/api/p/v1/messages"
+      - "/api/internal/v1/messages"
     broker-prefixes: # For Frontend
       - "/topics"
     allowed-origin-patterns:
