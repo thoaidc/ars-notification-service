@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/p/v1/messages")
+@RequestMapping("/api/internal/v1/messages")
 public class MessageResource {
     private final WebSocketClient webSocketClient;
 
