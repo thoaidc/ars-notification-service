@@ -127,8 +127,8 @@ eureka:
 
 app:
   domain: http://localhost:${server.port}
-  datasource: disabled
-  jpa-auditing: disabled
+  datasource: enabled
+  jpa-auditing: enabled
 
   security:
     enabled-tls: disabled

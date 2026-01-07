@@ -18,8 +18,6 @@ spring:
     active: "@profiles.active@"
   lifecycle:
     timeout-per-shutdown-phase: 30s
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
 server:
   shutdown: graceful
 
