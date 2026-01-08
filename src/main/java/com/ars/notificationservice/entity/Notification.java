@@ -1,6 +1,7 @@
 package com.ars.notificationservice.entity;
 
 import com.ars.notificationservice.dto.ChatMessageDTO;
+import com.ars.notificationservice.dto.ConversationDTO;
 import com.dct.config.entity.AbstractAuditingEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.ColumnResult;
@@ -30,6 +31,19 @@ import java.time.Instant;
                         @ColumnResult(name = "receiverName", type = String.class),
                         @ColumnResult(name = "content", type = String.class),
                         @ColumnResult(name = "createdDate", type = Instant.class)
+                    }
+                )
+            }
+        ),
+        @SqlResultSetMapping(
+            name = "conversationGetWithPaging",
+            classes = {
+                @ConstructorResult(
+                    targetClass = ConversationDTO.class,
+                    columns = {
+                        @ColumnResult(name = "partnerId", type = Integer.class),
+                        @ColumnResult(name = "partnerName", type = String.class),
+                        @ColumnResult(name = "latestMessageTime", type = Instant.class)
                     }
                 )
             }

@@ -18,7 +18,11 @@ public class ChatResource {
     }
 
     @GetMapping
-    public BaseResponseDTO getAllWithPaging(@ModelAttribute SearchChatMessageRequest request) {
-        return notificationService.getAllWithPaging(request);
+    public BaseResponseDTO getAllConversationWithPaging(@ModelAttribute SearchChatMessageRequest request) {
+        if (request.isConversationDetail()) {
+            return notificationService.getAllConversationMessageWithPaging(request);
+        }
+
+        return notificationService.getAllConversationWithPaging(request);
     }
 }

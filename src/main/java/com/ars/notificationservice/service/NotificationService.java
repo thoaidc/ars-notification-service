@@ -6,6 +6,7 @@ import com.ars.notificationservice.entity.Notification;
 import com.dct.model.dto.response.BaseResponseDTO;
 
 public interface NotificationService {
-    BaseResponseDTO getAllWithPaging(SearchChatMessageRequest request);
+    BaseResponseDTO getAllConversationWithPaging(SearchChatMessageRequest request);
+    BaseResponseDTO getAllConversationMessageWithPaging(SearchChatMessageRequest request);
     Notification saveMessage(ChatMessageRequest request);
 }

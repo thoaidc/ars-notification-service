@@ -3,6 +3,7 @@ package com.ars.notificationservice.service.impl;
 import com.ars.notificationservice.constants.ChatConstants;
 import com.ars.notificationservice.dto.ChatMessageDTO;
 import com.ars.notificationservice.dto.ChatMessageRequest;
+import com.ars.notificationservice.dto.ConversationDTO;
 import com.ars.notificationservice.dto.SearchChatMessageRequest;
 import com.ars.notificationservice.entity.Notification;
 import com.ars.notificationservice.repository.NotificationRepository;
@@ -34,16 +35,22 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public BaseResponseDTO getAllWithPaging(SearchChatMessageRequest request) {
-        if (Objects.isNull(request.getSenderId())) {
-            throw new BaseBadRequestException(ENTITY_NAME, "Người gửi không được bỏ trống.");
+    public BaseResponseDTO getAllConversationWithPaging(SearchChatMessageRequest request) {
+        if (Objects.isNull(request.getCurrentUserId())) {
+            throw new BaseBadRequestException(ENTITY_NAME, "ID người dùng không được bỏ trống.");
         }
 
-        if (request.isConversationDetail() && Objects.isNull(request.getReceiverId())) {
-            throw new BaseBadRequestException(ENTITY_NAME, "Người nhận không được bỏ trống.");
+        Page<ConversationDTO> conversationDTOPage = notificationRepository.getAllConversationWithPaging(request);
+        return BaseResponseDTO.builder().ok(conversationDTOPage.getContent());
+    }
+
+    @Override
+    public BaseResponseDTO getAllConversationMessageWithPaging(SearchChatMessageRequest request) {
+        if (Objects.isNull(request.getCurrentUserId()) || Objects.isNull(request.getPartnerId())) {
+            throw new BaseBadRequestException(ENTITY_NAME, "ID người dùng không được bỏ trống.");
         }
 
-        Page<ChatMessageDTO> messageDTOPage = notificationRepository.getAllWithPaging(request);
+        Page<ChatMessageDTO> messageDTOPage = notificationRepository.getAllConversationMessageWithPaging(request);
         List<ChatMessageDTO> messages = messageDTOPage.getContent().stream().peek(messageDTO -> {
             ChatMessageDTO.Message message = JsonUtils.parseJson(messageDTO.getContent(), ChatMessageDTO.Message.class);
             messageDTO.setMessage(message);

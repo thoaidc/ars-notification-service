@@ -3,8 +3,8 @@ package com.ars.notificationservice.dto;
 import com.dct.model.dto.request.BaseRequestDTO;
 
 public class SearchChatMessageRequest extends BaseRequestDTO {
-    private Integer senderId;
-    private Integer receiverId;
+    private Integer currentUserId;
+    private Integer partnerId;
     private boolean isConversationDetail;
 
     public boolean isConversationDetail() {
@@ -19,19 +19,23 @@ public class SearchChatMessageRequest extends BaseRequestDTO {
         this.isConversationDetail = conversationDetail;
     }
 
-    public Integer getSenderId() {
-        return senderId;
+    public Integer getCurrentUserId() {
+        return currentUserId;
     }
 
-    public void setSenderId(Integer senderId) {
-        this.senderId = senderId;
+    public void setCurrentUserId(Integer currentUserId) {
+        this.currentUserId = currentUserId;
     }
 
-    public Integer getReceiverId() {
-        return receiverId;
+    public Integer getPartnerId() {
+        return partnerId;
     }
 
-    public void setReceiverId(Integer receiverId) {
-        this.receiverId = receiverId;
+    public void setPartnerId(Integer partnerId) {
+        this.partnerId = partnerId;
+    }
+
+    public void setConversationDetail(boolean conversationDetail) {
+        isConversationDetail = conversationDetail;
     }
 }
