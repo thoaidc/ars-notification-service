@@ -2,6 +2,7 @@ package com.ars.notificationservice.service.impl;
 
 import com.ars.notificationservice.constants.ChatConstants;
 import com.ars.notificationservice.dto.ChatMessageDTO;
+import com.ars.notificationservice.dto.ChatMessageRequest;
 import com.ars.notificationservice.dto.SearchChatMessageRequest;
 import com.ars.notificationservice.entity.Notification;
 import com.ars.notificationservice.repository.NotificationRepository;
@@ -43,14 +44,18 @@ public class NotificationServiceImpl implements NotificationService {
         }
 
         Page<ChatMessageDTO> messageDTOPage = notificationRepository.getAllWithPaging(request);
-        return BaseResponseDTO.builder().total(messageDTOPage.getTotalElements()).ok(messageDTOPage.getContent());
+        List<ChatMessageDTO> messages = messageDTOPage.getContent().stream().peek(messageDTO -> {
+            ChatMessageDTO.Message message = JsonUtils.parseJson(messageDTO.getContent(), ChatMessageDTO.Message.class);
+            messageDTO.setMessage(message);
+        }).toList();
+        return BaseResponseDTO.builder().total(messageDTOPage.getTotalElements()).ok(messages);
     }
 
     @Override
     @Transactional
-    public Notification saveMessage(ChatMessageDTO messageDTO) {
+    public Notification saveMessage(ChatMessageRequest messageDTO) {
         Notification notification = new Notification();
-        BeanUtils.copyProperties(messageDTO, notification, "id", "content", "messages", "imageFiles");
+        BeanUtils.copyProperties(messageDTO, notification, "id", "imageFiles");
         notification.setType(ChatConstants.Type.CHAT);
         ChatMessageDTO.Message message = new ChatMessageDTO.Message();
 
