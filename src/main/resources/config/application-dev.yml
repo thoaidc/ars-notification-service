@@ -201,9 +201,9 @@ app:
     activate: enabled
     endpoints:
       - "/ws"
-    application-prefixes: # For backend
-      - "/api/internal/v1/messages"
-    broker-prefixes: # For Frontend
+    application-prefixes: # For sending
+      - "/api/v1/messages"
+    broker-prefixes: # For subscriber
       - "/topics"
     allowed-origin-patterns:
       - "*"

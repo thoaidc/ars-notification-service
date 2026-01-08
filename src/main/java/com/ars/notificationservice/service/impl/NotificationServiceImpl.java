@@ -48,15 +48,20 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     @Transactional
-    public void saveMessage(ChatMessageDTO messageDTO) {
+    public Notification saveMessage(ChatMessageDTO messageDTO) {
         Notification notification = new Notification();
         BeanUtils.copyProperties(messageDTO, notification, "id", "content", "messages", "imageFiles");
+        notification.setType(ChatConstants.Type.CHAT);
         ChatMessageDTO.Message message = new ChatMessageDTO.Message();
-        List<String> images = fileUtils.autoCompressImageAndSave(messageDTO.getImageFiles());
+
+        if (Objects.nonNull(messageDTO.getImageFiles())) {
+            List<String> images = fileUtils.autoCompressImageAndSave(messageDTO.getImageFiles());
+            message.setImages(images);
+        }
+
         message.setContent(messageDTO.getContent());
-        message.setImages(images);
         String content = JsonUtils.toJsonString(message);
         notification.setContent(content);
-        notificationRepository.save(notification);
+        return notificationRepository.save(notification);
     }
 }
