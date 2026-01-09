@@ -150,10 +150,12 @@ app:
       - /actuator/**
       - /ws-sock-js/**
       - /ws/**
+      - /api/v1/notifications/chats/**
       - /
     external-service-public-request-patterns:
       - /api/p/**
       - /api/internal/**
+      - /api/v1/notifications/chats/**
       - /
 
   http-client:
