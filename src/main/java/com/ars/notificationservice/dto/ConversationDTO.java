@@ -1,10 +1,17 @@
 package com.ars.notificationservice.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.Instant;
 
 public class ConversationDTO {
     private Integer partnerId;
     private String partnerName;
+    @JsonFormat(
+        shape = JsonFormat.Shape.STRING,
+        pattern = "dd-MM-yyyy HH:mm:ss",
+        timezone = "UTC"
+    )
     private Instant latestMessageTime;
 
     public ConversationDTO(Integer partnerId, String partnerName, Instant latestMessageTime) {
